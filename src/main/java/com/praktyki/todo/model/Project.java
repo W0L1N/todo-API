@@ -1,31 +1,38 @@
-package com.praktyki.todo;
+package com.praktyki.todo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 
 @Entity
-public class Task {
+public class Project {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     private String desc;
 
-    private boolean status;
+    @OneToMany
+    private List<Task> tasks;
 
-    public Task(Long id, String name, String desc,boolean status) {
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Project(Long id, String name, String desc) {
         this.id = id;
         this.name = name;
         this.desc = desc;
-        this.status = status;
     }
 
-    public Task(){
+    public Project(){
 
     }
 
@@ -51,13 +58,5 @@ public class Task {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 }
